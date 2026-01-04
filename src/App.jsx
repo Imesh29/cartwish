@@ -1,12 +1,15 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import Homepage from "./components/Home/Homepage";
 
 const App = () => {
   return (
     <div className="app">
       <Navbar />
-      <main>All Routing</main>
+      <main>
+        <Homepage />
+      </main>
     </div>
   );
 };
