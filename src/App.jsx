@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Homepage from "./components/Home/Homepage";
 import ProductsPage from "./components/Products/ProductsPage";
+import SingleProductPage from "./components/SingleProduct/SingleProductPage";
 
 const App = () => {
   return (
@@ -10,7 +11,8 @@ const App = () => {
       <Navbar />
       <main>
         {/* <Homepage /> */}
-        <ProductsPage />
+        {/* <ProductsPage /> */}
+        <SingleProductPage />
       </main>
     </div>
   );
