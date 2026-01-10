@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./SingleProductPage.css";
 
@@ -16,24 +16,29 @@ const product = {
   ],
   stock: 10,
 };
-
 const SingleProductPage = () => {
+  const [selectedImage, setSelectedImage] = useState(0);
   return (
     <section className="align_center single_product">
       <div className="align_center">
         <div className="single_product_thumbnails">
           {product.images.map((image, index) => (
-            <img src={image} alt={product.title} />
+            <img
+              key={index}
+              src={image}
+              alt={product.title}
+              onClick={() => setSelectedImage(index)}
+            />
           ))}
         </div>
 
         <img
-          src={product.images[0]}
+          src={product.images[selectedImage]}
           alt={product.title}
           className="single_product_display"
         />
       </div>
-      <div className="align_cneter single_product_details"></div>
+      <div className="align_center single_product_details"></div>
     </section>
   );
 };
