@@ -1,19 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const nameRef = useRef(null);
-  const phoneRef = useRef(null);
+  const [user, setUser] = useState({
+    name: "",
+    phone: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = {
-      name: "",
-      phone: 0,
-    };
-    user.name = nameRef.current.value;
-    user.phone = phoneRef.current.value;
     console.log(user);
   };
 
@@ -29,16 +25,17 @@ const LoginPage = () => {
               id="name"
               className="form_text_inputs"
               placeholder="Enter Your Name"
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
             />
           </div>
           <div>
             <label htmlFor="phone">Phone Number</label>
             <input
               type="number"
-              ref={phoneRef}
               id="phone"
               className="form_text_inputs"
               placeholder="Enter Your Name"
+              onChange={(e) => setUser({ ...user, phone: e.target.value })}
             />
           </div>
           <button type="submit" className="search_button form_submit">
