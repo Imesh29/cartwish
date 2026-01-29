@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Homepage from "../components/Home/Homepage";
-import ProductsPage from "../components/Products/ProductsPage";
-import SingleProductPage from "../components/SingleProduct/SingleProductPage";
-import CartPage from "../components/Cart/CartPage";
-import MyOrderPage from "../components/MyOrder/MyOrderPage";
-import LoginPage from "../components/Authentication/LoginPage";
-import SignupPage from "../components/Authentication/SignupPage";
+import Homepage from "../Home/Homepage";
+import ProductsPage from "../Products/ProductsPage";
+import SingleProductPage from "../SingleProduct/SingleProductPage";
+import CartPage from "../Cart/CartPage";
+import MyOrderPage from "../MyOrder/MyOrderPage";
+import LoginPage from "../Authentication/LoginPage";
+import SignupPage from "../Authentication/SignupPage";
 
 const Routing = () => {
   return (
