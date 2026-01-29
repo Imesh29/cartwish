@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import Routing from "./Routing/Routing";
+import Routing from "./components/Routing/Routing";
 
 const App = () => {
   return (
