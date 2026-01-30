@@ -30,7 +30,16 @@ const ProductsList = () => {
       <div className="products_list">
         {error && <em className="form_error">{error}</em>}
         {products.map((products) => (
-          <ProductCard key={products._id} />
+          <ProductCard
+            key={products._id}
+            id={products._id}
+            image={products.images[0]}
+            price={products.price}
+            title={products.title}
+            rating={products.reviews.rate}
+            ratingCounts={products.reviews.counts}
+            stock={products.stock}
+          />
         ))}
       </div>
     </section>
