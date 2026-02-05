@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import apiClients from "../../utils/api-clients";
 import "./ProductsSidebar.css";
-import rocket from "../../assets/rocket.png";
+
 import LinkWithIcon from "../Navbar/LinkWithIcon";
+import useData from "../../hooks/useData";
 
 const ProductsSidebar = () => {
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiClients
-      .get("/category")
-      .then((res) => setCategories(res.data))
-      .catch((err) => setError(err.message));
-  }, []);
+  const { data: categories, error } = useData("/category");
 
   return (
     <aside className="products_sidebar">
@@ -22,15 +14,16 @@ const ProductsSidebar = () => {
 
       <div className="categiry_links">
         {error && <em className="from_error">{error}</em>}
-        {categories.map((category) => (
-          <LinkWithIcon
-            id={category._id}
-            title={category.name}
-            link={`products?category=$(category.name)`}
-            emoji={`http://localhost:5000/category/${category.image}`}
-            sidebar={true}
-          />
-        ))}
+        {categories &&
+          categories.map((category) => (
+            <LinkWithIcon
+              id={category._id}
+              title={category.name}
+              link={`products?category=$(category.name)`}
+              emoji={`http://localhost:5000/category/${category.image}`}
+              sidebar={true}
+            />
+          ))}
       </div>
     </aside>
   );
