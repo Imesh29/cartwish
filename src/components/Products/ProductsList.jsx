@@ -7,6 +7,7 @@ import ProductCardSkeleton from "./ProductCardSkeleton";
 import Skeleton from "react-loading-skeleton";
 import { useParams, useSearchParams } from "react-router-dom";
 import CartPage from "./../Cart/CartPage";
+import Pagination from "../Common/Pagination";
 
 const ProductsList = () => {
   const [search, setSearch] = useSearchParams();
@@ -45,22 +46,30 @@ const ProductsList = () => {
       </header>
       <div className="products_list">
         {error && <em className="form_error">{error}</em>}
-        {isLoading && skeletons.map((n) => <ProductCardSkeleton key={n} />)}
-        {data?.products &&
-          data.products.map((products) => (
-            <ProductCard
-              key={products._id}
-              id={products._id}
-              image={products.images[0]}
-              price={products.price}
-              title={products.title}
-              rating={products.reviews.rate}
-              ratingCounts={products.reviews.counts}
-              stock={products.stock}
-            />
-          ))}
-        <button onClick={() => handlePageChange(2)}>Page 2</button>
+        {isLoading
+          ? skeletons.map((n) => <ProductCardSkeleton key={n} />)
+          : data?.products &&
+            data.products.map((products) => (
+              <ProductCard
+                key={products._id}
+                id={products._id}
+                image={products.images[0]}
+                price={products.price}
+                title={products.title}
+                rating={products.reviews.rate}
+                ratingCounts={products.reviews.counts}
+                stock={products.stock}
+              />
+            ))}
       </div>
+      {data && (
+        <Pagination
+          totalPosts={data.totalProducts}
+          postsPerPage={8}
+          onClick={handlePageChange}
+          currentPage={page}
+        />
+      )}
     </section>
   );
 };
