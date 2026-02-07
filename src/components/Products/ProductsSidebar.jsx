@@ -17,6 +17,7 @@ const ProductsSidebar = () => {
         {categories &&
           categories.map((category) => (
             <LinkWithIcon
+              key={category._id}
               id={category._id}
               title={category.name}
               link={`products?category=$(category.name)`}
