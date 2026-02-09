@@ -1,6 +1,6 @@
 import apiClients from "../utils/api-clients";
 
-export function singup(user, profile) {
+export function signup(user, profile) {
   const body = new FormData();
   body.append("name", user.name);
   body.append("email", user.email);
@@ -8,5 +8,9 @@ export function singup(user, profile) {
   body.append("deliveryAddress", user.deliveryAddress);
   body.append("profilePic", profile);
 
-  return apiClients.post("/user/singup", body);
+  return apiClients.post("/user/signup", body);
+}
+
+export async function login(user) {
+  return apiClients.post("/user/login", user);
 }
