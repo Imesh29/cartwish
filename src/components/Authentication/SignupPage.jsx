@@ -11,22 +11,24 @@ const schema = z
     name: z
       .string()
       .min(3, { message: "Name should be at least 3 characters." }),
-    email: z.string().email({ message: "Please enter valid email" }),
+    email: z.string().email({ message: "Please enter valid email." }),
     password: z
       .string()
-      .min(8, { message: "Password must be at least 8 characters" }),
+      .min(8, { message: "Password must be at least 8 characters." }),
     confirmPassword: z.string(),
     deliveryAddress: z
       .string()
-      .min(15, { message: " Address must be at least 15 characters." }),
+      .min(15, { message: "Address must be at least 15 characters." }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Confirm Passsword does not Password",
+    message: "Confirm Password does not match Password.",
     path: ["confirmPassword"],
   });
 
 const SignupPage = () => {
   const [profilePic, setProfilePic] = useState(null);
+  const [formError, setFormError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -34,7 +36,15 @@ const SignupPage = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = async (formData) => {
-    await singup(formData, profilePic);
+    try {
+      await signup(formData, profilePic);
+
+      window.location = "/";
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setFormError(err.response.data.message);
+      }
+    }
   };
 
   return (
@@ -114,7 +124,7 @@ const SignupPage = () => {
               className="form_text_input"
               type="password"
               placeholder="Enter confirm password"
-              {...register("confirm password")}
+              {...register("confirmPassword")}
             />
             {errors.confirmPassword && (
               <em className="form_error">{errors.confirmPassword.message}</em>
@@ -127,13 +137,15 @@ const SignupPage = () => {
               id="address"
               className="input_textarea"
               placeholder="Enter delivery address"
-              {...register("delivery address")}
+              {...register("deliveryAddress")}
             />
             {errors.deliveryAddress && (
               <em className="form_error">{errors.deliveryAddress.message}</em>
             )}
           </div>
         </div>
+
+        {formError && <em className="form_error">{formError}</em>}
 
         <button className="search_button form_submit" type="submit">
           Submit
