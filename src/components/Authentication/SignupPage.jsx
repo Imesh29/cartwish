@@ -4,16 +4,17 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { singup } from "../../services/userServices";
 
 const schema = z
   .object({
     name: z
       .string()
       .min(3, { message: "Name should be at least 3 characters." }),
-    email: z.string().email({ messafe: "Please enter valid email" }),
+    email: z.string().email({ message: "Please enter valid email" }),
     password: z
       .string()
-      .min(8, { message: "Password must ne at least 8 characters" }),
+      .min(8, { message: "Password must be at least 8 characters" }),
     confirmPassword: z.string(),
     deliveryAddress: z
       .string()
@@ -32,8 +33,9 @@ const SignupPage = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  const onSubmit = (formData) => console.log(formData);
-  console.log(profilePic);
+  const onSubmit = async (formData) => {
+    await singup(formData, profilePic);
+  };
 
   return (
     <section className="align_center form_page">
