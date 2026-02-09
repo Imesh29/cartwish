@@ -16,6 +16,7 @@ const schema = z.object({
 
 const LoginPage = () => {
   const [formError, setFormError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -24,7 +25,10 @@ const LoginPage = () => {
 
   const onSubmit = async (formData) => {
     try {
-      await login(formData);
+      const { data } = await login(formData);
+      localStorage.setItem("token", data.token);
+
+      window.location = "/";
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setFormError(err.response.data.message);
