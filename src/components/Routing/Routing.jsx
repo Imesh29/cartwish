@@ -19,6 +19,7 @@ const Routing = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/myorders" element={<MyOrderPage />} />
+      <Route path="/logout" element={<Logout />} />
     </Routes>
   );
 };
