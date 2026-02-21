@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
-import { jwtDecode } from "jwt-decode";
+import { getUser } from "./services/userServices";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     try {
@@ -18,11 +19,22 @@ const App = () => {
       }
     } catch (error) {}
   }, []);
+
+  const addToCart = (product, quantity) => {
+    setCart([
+      ...cart,
+      {
+        product,
+        quantity,
+      },
+    ]);
+  };
+
   return (
     <div className="app">
-      <Navbar user={user} />
+      <Navbar user={user} cartCount={cart.length} />
       <main>
-        <Routing />
+        <Routing addToCart={addToCart} />
       </main>
     </div>
   );
