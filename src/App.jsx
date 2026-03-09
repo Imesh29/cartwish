@@ -10,19 +10,27 @@ const App = () => {
 
   useEffect(() => {
     try {
+      const jwt = localStorage.getItem("token");
+
+      if (!jwt) return;
+
       const jwtUser = getUser(jwt);
+
       if (Date.now() >= jwtUser.exp * 1000) {
         localStorage.removeItem("token");
-        location.reload();
+        window.location.reload();
       } else {
         setUser(jwtUser);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const addToCart = (product, quantity) => {
     const updatedCart = [...cart];
-    constproductIndex = updatedCart.findIndex(
+
+    const productIndex = updatedCart.findIndex(
       (item) => item.product._id === product._id,
     );
 
