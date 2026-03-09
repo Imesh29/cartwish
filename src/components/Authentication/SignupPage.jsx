@@ -40,8 +40,6 @@ const SignupPage = () => {
       await signup(formData, profilePic);
 
       window.location = "/";
-
-      window.location = "/";
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setFormError(err.response.data.message);
